@@ -10,9 +10,10 @@ int	*atoi_clues(char **splitted_clues)
 	i = -1;
 	while (splitted_clues[++i])
 		int_clues[i] = ft_atoi(splitted_clues[i]);
-	int_clues[N * N] = 0;
+	int_clues[N * N] = -1;
 	return (int_clues);
 }
+
 
 void	util_print_board(t_cell ***board)
 {
@@ -30,7 +31,6 @@ void	util_print_board(t_cell ***board)
 			k = -1;
 			while (++k < TOTAL_COLS)
 			{
-			//character = (*board)[i][j] + '0';
 				c = (*board)[i][j].possible_num[k] + '0';
 				write(1, &c, 1);
 			}
@@ -39,20 +39,6 @@ void	util_print_board(t_cell ***board)
 		write(1, "\n", 1);
 	}
 }
-
-/*void	init_value(int ***board, int value)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (++i < TOTAL_ROWS)
-	{
-		j = -1;
-		while (++j < TOTAL_COLS)
-			(*board)[i][j] = value;
-	}
-}*/
 
 void	init_values(t_cell ***board)
 {
@@ -81,7 +67,7 @@ t_cell	*insert_row(void)
 	row = malloc(sizeof(t_cell) * (TOTAL_COLS + 1));
 	if (!row)
 		return (NULL);
-	//row[TOTAL_COLS] = 0;
+	//row[TOTAL_COLS] = NULL;
 	return (row);
 }
 
@@ -100,3 +86,37 @@ void	init_board(t_cell ***board)
 		(*board)[i] = insert_row();
 }
 
+int	*get_cell_indicies_row_index(int row_index, int n)
+{	
+	int	i;
+	int	*cell_indicies;
+
+	cell_indicies = malloc(sizeof(int) * (n + 1));
+	if (!cell_indicies)
+		return (NULL);
+	cell_indicies[n] = 0;
+	i = -1;
+	while (++i < TOTAL_COLS)
+		cell_indicies[i] = row_index * n + i;
+	return (cell_indicies);
+}
+
+int	*get_cell_indicies_col_index(int col_index, int n)
+{	
+	int	i;
+	int	*cell_indicies;
+
+	cell_indicies = malloc(sizeof(int) * (n + 1));
+	if (!cell_indicies)
+		return (NULL);
+	cell_indicies[n] = 0;
+	i = -1;
+	while (++i < TOTAL_COLS)
+		cell_indicies[i] = col_index + i * n;
+	return (cell_indicies);
+}
+
+/*int	*get_cell_indicies_from_clue_index(int clue_index)
+{
+
+}*/
