@@ -1,0 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rush01.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/26 20:21:51 by ntan-wan          #+#    #+#             */
+/*   Updated: 2022/08/26 22:58:49 by ntan-wan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef RUSH01_H
+# define RUSH01_H
+
+# define N 4
+# define TOTAL_ROWS N 
+# define TOTAL_COLS N 
+
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+
+typedef struct s_cell
+{
+	int	possible_num[N];
+} t_cell;
+
+t_cell	*insert_row(void);
+void	init_board(t_cell ***board);
+void	init_values(t_cell ***board);
+int		*atoi_clues(char **splitted_clues);
+void	util_print_board(t_cell ***board);
+
+/*  */
+int		ft_atoi(const char *str);
+char	**ft_split(char const *s, char c);
+#endif
