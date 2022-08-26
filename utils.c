@@ -50,10 +50,10 @@ int	*insert_row(void)
 {
 	int	*row;
 
-	row = malloc(sizeof(int) * (N + 2));
+	row = malloc(sizeof(int) * (TOTAL_COLS + 1));
 	if (!row)
 		return NULL;
-	//row[N + 2] = 0;
+	row[N + 2] = 0;
 	return (row);
 }
 
@@ -64,13 +64,15 @@ void	init_board(void)
 	int	i;
 	int	j;
 
-	board = malloc(sizeof(int *) * (N + 2));
-	board[N + 2] = NULL;
+	board = malloc(sizeof(int *) * (TOTAL_ROWS + 1));
+	if (!board)
+		return ;
+	board[TOTAL_ROWS] = NULL;
 	i = -1;
-	while (++i < N + 2)
+	while (++i < TOTAL_ROWS)
 		board[i] = insert_row();
 	i = -1;
-	while (++i < N + 2)
+	while (++i < TOTAL_ROWS)
 	{
 		j = -1;
 		while (++j < N + 2)
@@ -85,29 +87,3 @@ void	init_board(void)
 	//row[1] = 2;
 }
 
-void	init_board(void)
-{
-	int	**board;
-	int	i;
-	int	j;
-
-	board = malloc(sizeof(int *) * (N + 2));
-	board[N + 2] = NULL;
-	i = -1;
-	while (++i < N + 2)
-		board[i] = insert_row();
-	i = -1;
-	while (++i < N + 2)
-	{
-		j = -1;
-		while (++j < N + 2)
-			board[i][j] = j;
-	}
-
-	//printf("%d\n" ,board[0][0]);
-	util_print_arr(board);
-	//int	*row;
-
-	///row = insert_row();
-	//row[1] = 2;
-}
