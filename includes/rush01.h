@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 20:21:51 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/27 10:28:09 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/27 15:33:32 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define N 4
 # define TOTAL_ROWS N 
 # define TOTAL_COLS N 
+# define TOTAL_CELLS N * N
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -27,10 +28,10 @@ typedef struct s_cell
 } t_cell;
 
 t_cell	*insert_row(void);
-void	init_board(t_cell ***board);
-void	init_values(t_cell ***board);
+void	init_board(t_cell **board);
+void	init_values(t_cell **board);
 int		*atoi_clues(char **splitted_clues);
-void	util_print_board(t_cell ***board);
+void	util_print_board(t_cell **board);
 int		*get_cell_indices_row_index(int row_index, int n);
 int		*get_cell_indices_col_index(int col_index, int n);
 int		*get_cell_indices_clue_index(int clue_index, int n);

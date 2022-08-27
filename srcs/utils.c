@@ -19,7 +19,7 @@ void	putstr_fd(char *c, int fd)
 	write(fd, c, ft_strlen(c));
 }
 
-void	util_print_board(t_cell ***board)
+/*void	util_print_board(t_cell ***board)
 {
 	int		i;
 	int		j;
@@ -42,9 +42,31 @@ void	util_print_board(t_cell ***board)
 		}
 		write(1, "\n", 1);
 	}
+}*/
+
+void	util_print_board(t_cell **board)
+{
+	int		i;
+	int		j;
+	char	*c;
+
+	i = -1;
+	while (++i < TOTAL_CELLS)
+	{
+		j = -1;
+		while (++j < TOTAL_COLS)
+		{
+			c = ft_itoa((*board)[i].possible_num[j]);
+			putstr_fd(c, 1);
+		}
+		if ((i + 1) % N == 0)
+			putstr_fd("\n", 1);
+		else
+			putstr_fd(" ", 1);
+	}
 }
 
-void	init_values(t_cell ***board)
+/*void	init_values(t_cell ***board)
 {
 	int	i;
 	int	j;
@@ -61,10 +83,24 @@ void	init_values(t_cell ***board)
 				(*board)[i][j].possible_num[k] = k + 1;
 		}
 	}
+}*/
+
+void	init_values(t_cell **board)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < TOTAL_CELLS)
+	{
+		j = -1;
+		while (++j < TOTAL_COLS)
+			(*board)[i].possible_num[j] = j + 1;
+	}
 }
 
 //remember to free
-t_cell	*insert_row(void)
+/*t_cell	*insert_row(void)
 {
 	t_cell	*row;
 
@@ -73,21 +109,22 @@ t_cell	*insert_row(void)
 		return (NULL);
 	row[TOTAL_COLS].possible_num[0] = 0;
 	return (row);
-}
+}*/
 
 //remember to free
-void	init_board(t_cell ***board)
+void	init_board(t_cell **board)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_cell	new_cell;
 
-	*board = malloc(sizeof(t_cell *) * (TOTAL_ROWS + 1));
+	*board = malloc(sizeof(t_cell) * (TOTAL_CELLS + 1));
 	if (!board)
 		return ;
-	(*board)[TOTAL_ROWS] = NULL;
+	//(*board)[TOTAL_ROWS] = NULL;
 	i = -1;
-	while (++i < TOTAL_ROWS)
-		(*board)[i] = insert_row();
+	while (++i < TOTAL_CELLS)
+		(*board)[i] = new_cell;
 }
 //
 void	reverse_indices_arr(int	**arr)
