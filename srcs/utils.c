@@ -211,10 +211,24 @@ void	edge_clue_min(t_cell **board, int *cell_indices)
 	}
 }
 
-/*void	edge_clue_mid()
+void	edge_clue_mid(t_cell **board, int clue, int *cell_indices)
 {
-	N - c + 2 + d
-}*/
+	int	i;
+	int	j;
+	int	get_rid_num;
+
+	i = -1;
+	while (cell_indices[++i] != -1)
+	{
+		j = -1;
+		get_rid_num = N - clue + 2 + i;
+		while (++j < TOTAL_COLS)
+		{
+			if ((*board)[cell_indices[i]].possible_num[j] >= get_rid_num)
+				(*board)[cell_indices[i]].possible_num[j] = 0;
+		}
+	}
+}
 
 void	edge_clue_max(t_cell **board, int *cell_indices)
 {
@@ -252,7 +266,7 @@ void	solve_edge_clues(t_cell **board, int *int_clues)
 			edge_clue_min(board, cell_indices);
 		else if (int_clues[i] == N)
 			edge_clue_max(board, cell_indices);
-		/*else
-			edge_clue_mid();*/
+		else
+			edge_clue_mid(board, int_clues[i], cell_indices);
 	}
 }
