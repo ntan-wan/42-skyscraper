@@ -146,58 +146,62 @@ void	reverse_indices_arr(int	**arr)
 	}
 }
 
-int	*get_cell_indices_row_index(int row_index, int n)
+int	*get_cell_indices_row_index(int row_index)
 {	
 	int	i;
 	int	*cell_indicies;
 
-	cell_indicies = malloc(sizeof(int) * (n + 1));
+	cell_indicies = malloc(sizeof(int) * (N + 1));
 	if (!cell_indicies)
 		return (NULL);
-	cell_indicies[n] = -1;
+	cell_indicies[N] = -1;
 	i = -1;
 	while (++i < TOTAL_COLS)
-		cell_indicies[i] = row_index * n + i;
+		cell_indicies[i] = row_index * N + i;
 	return (cell_indicies);
 }
 
-int	*get_cell_indices_col_index(int col_index, int n)
+int	*get_cell_indices_col_index(int col_index)
 {	
 	int	i;
 	int	*cell_indicies;
 
-	cell_indicies = malloc(sizeof(int) * (n + 1));
+	cell_indicies = malloc(sizeof(int) * (N + 1));
 	if (!cell_indicies)
 		return (NULL);
-	cell_indicies[n] = -1;
+	cell_indicies[N] = -1;
 	i = -1;
 	while (++i < TOTAL_COLS)
-		cell_indicies[i] = col_index + i * n;
+		cell_indicies[i] = col_index + i * N;
 	return (cell_indicies);
 }
 
-int	*get_cell_indices_clue_index(int clue_index, int n)
+int	*get_cell_indices_clue_index(int clue_index)
 {
 	int	*cell_indices;
 
-	if (clue_index < n)
-		cell_indices = get_cell_indices_col_index(clue_index, n);
-	else if (clue_index >= n && clue_index < 2 * n)
+	if (clue_index < N)
+		cell_indices = get_cell_indices_col_index(clue_index);
+	else if (clue_index >= N && clue_index < 2 * N)
 	{
-		cell_indices = get_cell_indices_col_index(clue_index - n, n);
+		cell_indices = get_cell_indices_col_index(clue_index - N);
 		reverse_indices_arr(&cell_indices);
 	}
-	else if (clue_index >= 2 * n && clue_index < 3 * n)
-		cell_indices = get_cell_indices_row_index(clue_index - (2 * n), n);
-	else if (clue_index >= 3 * n && clue_index < 4 * n)
+	else if (clue_index >= 2 * N && clue_index < 3 * N)
+		cell_indices = get_cell_indices_row_index(clue_index - (2 * N));
+	else if (clue_index >= 3 * N && clue_index < 4 * N)
 	{
-		cell_indices = get_cell_indices_row_index(clue_index - (3 * n), n);
+		cell_indices = get_cell_indices_row_index(clue_index - (3 * N));
 		reverse_indices_arr(&cell_indices);
 	}
 	else
 		return (NULL);
 	return (cell_indices);
 }
+
+/*int	*get_cross_indices_cell_index(int cell_index)
+{
+}*/
 
 void	edge_clue_min(t_cell **board, int *cell_indices)
 {
@@ -259,14 +263,12 @@ void	solve_edge_clues(t_cell **board, int *int_clues)
 	i = -1;
 	while (int_clues[++i])
 	{
-		cell_indices = get_cell_indices_clue_index(i, N);
-		//if (i == 8)
-		//	print_arr(cell_indices);
+		cell_indices = get_cell_indices_clue_index(i);
 		if (int_clues[i] == 1)
 			edge_clue_min(board, cell_indices);
 		else if (int_clues[i] == N)
 			edge_clue_max(board, cell_indices);
-		else
+		else if (1 < int_clues[i] && int_clues[i] < N)
 			edge_clue_mid(board, int_clues[i], cell_indices);
 	}
 }
