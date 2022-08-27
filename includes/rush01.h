@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 20:21:51 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/27 15:56:20 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/27 17:01:05 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		*get_cell_indices_clue_index(int clue_index, int n);
 void	putstr_fd(char *c, int fd);
 void	reverse_indices_arr(int	**arr);
 void	solve_edge_clues(t_cell **board, int *int_clues);
-
+void	print_arr(int *arr);
 /*  */
 size_t	ft_strlen(const char *str);
 char	*ft_itoa(int n);

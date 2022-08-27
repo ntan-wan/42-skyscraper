@@ -199,22 +199,39 @@ int	*get_cell_indices_clue_index(int clue_index, int n)
 	return (cell_indices);
 }
 
-void	edge_clue_1(t_cell **board, int	*cell_indices)
+void	edge_clue_min(t_cell **board, int *cell_indices)
+{
+	int	j;
+
+	j = -1;
+	while (++j < TOTAL_COLS)
+	{
+		if ((*board)[cell_indices[0]].possible_num[j] != N)
+			(*board)[cell_indices[0]].possible_num[j] = 0;
+	}
+}
+
+/*void	edge_clue_mid()
+{
+	N - c + 2 + d
+}*/
+
+void	edge_clue_max(t_cell **board, int *cell_indices)
 {
 	int	i;
 	int	j;
 	int	n;
 
 	i = -1;
-	n = N + 1;
+	n = 0;
 	while (cell_indices[++i] != -1)
 	{	
-		n--;
+		n++;
 		j = -1;
 		while (++j < TOTAL_COLS)
 		{
 			if ((*board)[cell_indices[i]].possible_num[j] != n)
-			(*board)[cell_indices[i]].possible_num[j] = 0;
+				(*board)[cell_indices[i]].possible_num[j] = 0;
 		}
 	}	
 }
@@ -222,13 +239,20 @@ void	edge_clue_1(t_cell **board, int	*cell_indices)
 void	solve_edge_clues(t_cell **board, int *int_clues)
 {
 	int	i;
+	//remember to free
 	int	*cell_indices;
 
 	i = -1;
 	while (int_clues[++i])
 	{
 		cell_indices = get_cell_indices_clue_index(i, N);
+		//if (i == 8)
+		//	print_arr(cell_indices);
 		if (int_clues[i] == 1)
-			edge_clue_1(board, cell_indices);
+			edge_clue_min(board, cell_indices);
+		else if (int_clues[i] == N)
+			edge_clue_max(board, cell_indices);
+		/*else
+			edge_clue_mid();*/
 	}
 }
