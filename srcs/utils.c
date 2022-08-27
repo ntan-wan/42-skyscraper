@@ -222,56 +222,55 @@ int	is_one_value(int *nums)
 	else
 		return (0);
 }
-
-void	propagate_from_cell(t_cell **board, int *nums, int cell_index)
+int	remove_num(t_cell **board, int *row_col, int num, int cell_index)
 {
 	int	i;
 	int	j;
-	// remember to free
-	int	*row;
-	// remember to free
-	int	*col;
-	int	value;	
+	int	removed;
 
-	while (*nums == 0)
-		nums++;
-	value = *nums;
-	row = get_cell_indices_row_index(cell_index / N);
-	col = get_cell_indices_col_index(cell_index % N);
 	i = -1;
-	while (row[++i])
+	removed = 0;
+	while (row_col[++i])
 	{
 		j = -1;
 		while (++j < TOTAL_COLS)
 		{
-			if (row[i] != cell_index && (*board)[row[i]].nums[j] == value)
-				(*board)[row[i]].nums[j] = 0;
+			if (row_col[i] != cell_index && (*board)[row_col[i]].nums[j] == num)
+			{
+				(*board)[row_col[i]].nums[j] = 0;
+				removed++;
+			}
 		}
 	}
-	i = -1;
-	while (col[++i])
-	{
-		j = -1;
-		while (++j < TOTAL_ROWS)
-		{
-			if (col[i] != cell_index && (*board)[col[i]].nums[j] == value)
-				(*board)[col[i]].nums[j] = 0;
-		}
-	}	
+	return (removed);
 }
 
 void	propagate_constraint(t_cell **board)
 {
 	int	i;
 	int	j;
-	int	count;
+	int	*row;
+	int	*col;
+	int	removed;
 
 	i = -1;
+	removed = 0;
 	while (++i < TOTAL_CELLS)
-	{
+	{	
 		if (is_one_value((*board)[i].nums))
-			propagate_from_cell(board, (*board)[i].nums, i);
+		 {
+			j = -1;
+			while ((*board)[i].nums[++j] == 0);
+			row = get_cell_indices_row_index(i / N);
+			col = get_cell_indices_col_index(i % N);
+			removed += remove_num(board, row, (*board)[i].nums[j], i);
+			removed += remove_num(board, col, (*board)[i].nums[j], i);
+			free(row);
+			free(col);
+		 }
 	}
+	if (removed)
+		propagate_constraint(board);
 }
 
 void	edge_clue_min(t_cell **board, int *cell_indices)
