@@ -6,11 +6,11 @@ int	*atoi_clues(char **splitted_clues)
 	int	i;
 	int	*int_clues;
 
-	int_clues = malloc(sizeof(int) * (N * N + 1));
+	int_clues = malloc(sizeof(int) * (TOTAL_CELLS + 1));
 	i = -1;
 	while (splitted_clues[++i])
 		int_clues[i] = ft_atoi(splitted_clues[i]);
-	int_clues[N * N] = 0;
+	int_clues[TOTAL_CELLS] = 0;
 	return (int_clues);
 }
 
@@ -121,7 +121,7 @@ void	init_board(t_cell **board)
 	*board = malloc(sizeof(t_cell) * (TOTAL_CELLS + 1));
 	if (!board)
 		return ;
-	//(*board)[TOTAL_ROWS] = NULL;
+	(*board)[TOTAL_ROWS].possible_num[0] = 0;
 	i = -1;
 	while (++i < TOTAL_CELLS)
 		(*board)[i] = new_cell;
@@ -199,58 +199,35 @@ int	*get_cell_indices_clue_index(int clue_index, int n)
 	return (cell_indices);
 }
 
-void	solve_edge_clues(t_cell ***board, int *int_clues)
+void	solve_edge_clues(t_cell **board, int *int_clues)
 {
-	/*int	i;
-	int	j;
-	int	k;
-	int	l;
-	int	n;
-	//remember to free
-	int	*cell_indices;
-
-	n = N;
-	i = -1;
-	while (int_clues[++i])
-	{	
-		int	k = -1;
-		cell_indices = get_cell_indices_clue_index(i, N);
-		while (cell_indices[++k] != -1)
-		{
-			j = -1;
-			if (int_clues[i] == 1)
-			{
-				l = -1;
-				// here's the bug
-				while ((*board)[i][k].possible_num[++l] != n)
-					(*board)[i][k].possible_num[l] = 0;
-			}
-		}
-	}*/
-
 	int	i;
 	int	j;
 	int	k;
 	int	n;
+	int	*cell_indices;
 
 	i = -1;
-	while (++i < TOTAL_ROWS)
+	n = N + 1;
+	while (int_clues[++i])
 	{
+		cell_indices = get_cell_indices_clue_index(i, N);
 		if (int_clues[i] == 1)
 		{
 			j = -1;
-			n = N + 1;
-			while (++j < TOTAL_ROWS)
-			{
-				k = -1;
+			while (cell_indices[++j] != -1)
+			{	
 				n--;
+				k = -1;
 				while (++k < TOTAL_COLS)
 				{
-					if ((*board)[j][i].possible_num[k] != n)
-						(*board)[j][i].possible_num[k] = 0;
-
+					if ((*board)[cell_indices[j]].possible_num[k] != n)
+					(*board)[cell_indices[j]].possible_num[k] = 0;
 				}
+
 			}
 		}
+
 	}
+
 }
