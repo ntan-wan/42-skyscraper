@@ -199,35 +199,36 @@ int	*get_cell_indices_clue_index(int clue_index, int n)
 	return (cell_indices);
 }
 
-void	solve_edge_clues(t_cell **board, int *int_clues)
+void	edge_clue_1(t_cell **board, int	*cell_indices)
 {
 	int	i;
 	int	j;
-	int	k;
 	int	n;
-	int	*cell_indices;
 
 	i = -1;
 	n = N + 1;
+	while (cell_indices[++i] != -1)
+	{	
+		n--;
+		j = -1;
+		while (++j < TOTAL_COLS)
+		{
+			if ((*board)[cell_indices[i]].possible_num[j] != n)
+			(*board)[cell_indices[i]].possible_num[j] = 0;
+		}
+	}	
+}
+
+void	solve_edge_clues(t_cell **board, int *int_clues)
+{
+	int	i;
+	int	*cell_indices;
+
+	i = -1;
 	while (int_clues[++i])
 	{
 		cell_indices = get_cell_indices_clue_index(i, N);
 		if (int_clues[i] == 1)
-		{
-			j = -1;
-			while (cell_indices[++j] != -1)
-			{	
-				n--;
-				k = -1;
-				while (++k < TOTAL_COLS)
-				{
-					if ((*board)[cell_indices[j]].possible_num[k] != n)
-					(*board)[cell_indices[j]].possible_num[k] = 0;
-				}
-
-			}
-		}
-
+			edge_clue_1(board, cell_indices);
 	}
-
 }
