@@ -35,7 +35,7 @@ void	putstr_fd(char *c, int fd)
 			k = -1;
 			while (++k < TOTAL_COLS)
 			{
-				c = ft_itoa((*board)[i][j].possible_num[k]);
+				c = ft_itoa((*board)[i][j].nums[k]);
 				putstr_fd(c, 1);
 			}
 			write(1, " ", 1);
@@ -56,7 +56,7 @@ void	util_print_board(t_cell **board)
 		j = -1;
 		while (++j < TOTAL_COLS)
 		{
-			c = ft_itoa((*board)[i].possible_num[j]);
+			c = ft_itoa((*board)[i].nums[j]);
 			putstr_fd(c, 1);
 		}
 		if ((i + 1) % N == 0)
@@ -80,7 +80,7 @@ void	util_print_board(t_cell **board)
 		{	
 			k = -1;
 			while (++k < TOTAL_COLS)
-				(*board)[i][j].possible_num[k] = k + 1;
+				(*board)[i][j].nums[k] = k + 1;
 		}
 	}
 }*/
@@ -95,7 +95,7 @@ void	init_values(t_cell **board)
 	{
 		j = -1;
 		while (++j < TOTAL_COLS)
-			(*board)[i].possible_num[j] = j + 1;
+			(*board)[i].nums[j] = j + 1;
 	}
 }
 
@@ -107,7 +107,7 @@ void	init_values(t_cell **board)
 	row = malloc(sizeof(t_cell) * (TOTAL_COLS + 1));
 	if (!row)
 		return (NULL);
-	row[TOTAL_COLS].possible_num[0] = 0;
+	row[TOTAL_COLS].nums[0] = 0;
 	return (row);
 }*/
 
@@ -121,7 +121,7 @@ void	init_board(t_cell **board)
 	*board = malloc(sizeof(t_cell) * (TOTAL_CELLS + 1));
 	if (!board)
 		return ;
-	(*board)[TOTAL_ROWS].possible_num[0] = 0;
+	(*board)[TOTAL_ROWS].nums[0] = 0;
 	i = -1;
 	while (++i < TOTAL_CELLS)
 		(*board)[i] = new_cell;
@@ -201,7 +201,78 @@ int	*get_cell_indices_clue_index(int clue_index)
 
 /*int	*get_cross_indices_cell_index(int cell_index)
 {
+	get_cell_indices_row_index(cell_index / N);
+	get_cell_indices_col_index(cell_index % N);
 }*/
+
+int	is_one_value(int *nums)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (++i < TOTAL_COLS)
+	{
+		if (nums[i] > 0)
+			count++;
+	}
+	if (count == 1)
+		return (1);
+	else
+		return (0);
+}
+
+void	propagate_from_cell(t_cell **board, int *nums, int cell_index)
+{
+	int	i;
+	int	j;
+	// remember to free
+	int	*row;
+	// remember to free
+	int	*col;
+	int	value;	
+
+	while (*nums == 0)
+		nums++;
+	value = *nums;
+	row = get_cell_indices_row_index(cell_index / N);
+	col = get_cell_indices_col_index(cell_index % N);
+	i = -1;
+	while (row[++i])
+	{
+		j = -1;
+		while (++j < TOTAL_COLS)
+		{
+			if (row[i] != cell_index && (*board)[row[i]].nums[j] == value)
+				(*board)[row[i]].nums[j] = 0;
+		}
+	}
+	i = -1;
+	while (col[++i])
+	{
+		j = -1;
+		while (++j < TOTAL_ROWS)
+		{
+			if (col[i] != cell_index && (*board)[col[i]].nums[j] == value)
+				(*board)[col[i]].nums[j] = 0;
+		}
+	}	
+}
+
+void	propagate_constraint(t_cell **board)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	i = -1;
+	while (++i < TOTAL_CELLS)
+	{
+		if (is_one_value((*board)[i].nums))
+			propagate_from_cell(board, (*board)[i].nums, i);
+	}
+}
 
 void	edge_clue_min(t_cell **board, int *cell_indices)
 {
@@ -210,8 +281,8 @@ void	edge_clue_min(t_cell **board, int *cell_indices)
 	j = -1;
 	while (++j < TOTAL_COLS)
 	{
-		if ((*board)[cell_indices[0]].possible_num[j] != N)
-			(*board)[cell_indices[0]].possible_num[j] = 0;
+		if ((*board)[cell_indices[0]].nums[j] != N)
+			(*board)[cell_indices[0]].nums[j] = 0;
 	}
 }
 
@@ -219,17 +290,17 @@ void	edge_clue_mid(t_cell **board, int clue, int *cell_indices)
 {
 	int	i;
 	int	j;
-	int	get_rid_num;
+	int	value_to_eliminate;
 
 	i = -1;
 	while (cell_indices[++i] != -1)
 	{
 		j = -1;
-		get_rid_num = N - clue + 2 + i;
+		value_to_eliminate = N - clue + 2 + i;
 		while (++j < TOTAL_COLS)
 		{
-			if ((*board)[cell_indices[i]].possible_num[j] >= get_rid_num)
-				(*board)[cell_indices[i]].possible_num[j] = 0;
+			if ((*board)[cell_indices[i]].nums[j] >= value_to_eliminate)
+				(*board)[cell_indices[i]].nums[j] = 0;
 		}
 	}
 }
@@ -248,8 +319,8 @@ void	edge_clue_max(t_cell **board, int *cell_indices)
 		j = -1;
 		while (++j < TOTAL_COLS)
 		{
-			if ((*board)[cell_indices[i]].possible_num[j] != n)
-				(*board)[cell_indices[i]].possible_num[j] = 0;
+			if ((*board)[cell_indices[i]].nums[j] != n)
+				(*board)[cell_indices[i]].nums[j] = 0;
 		}
 	}	
 }

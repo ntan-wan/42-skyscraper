@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 20:21:51 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/27 20:48:58 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/27 22:07:14 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef struct s_cell
 {
-	int	possible_num[N];
+	int	nums[N];
 } t_cell;
 
 t_cell	*insert_row(void);
@@ -39,6 +39,8 @@ void	putstr_fd(char *c, int fd);
 void	reverse_indices_arr(int	**arr);
 void	solve_edge_clues(t_cell **board, int *int_clues);
 void	print_arr(int *arr);
+int		is_one_value(int *nums);
+void	propagate_constraint(t_cell **board);
 /*  */
 size_t	ft_strlen(const char *str);
 char	*ft_itoa(int n);
