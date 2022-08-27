@@ -164,7 +164,7 @@ int	*get_cell_indices_clue_index(int clue_index, int n)
 
 void	solve_edge_clues(t_cell ***board, int *int_clues)
 {
-	int	i;
+	/*int	i;
 	int	j;
 	int	k;
 	int	l;
@@ -185,8 +185,34 @@ void	solve_edge_clues(t_cell ***board, int *int_clues)
 			{
 				l = -1;
 				// here's the bug
-				while ((*board)[i][cell_indices[++l]].possible_num[++j] != n)
-					(*board)[i][cell_indices[++l]].possible_num[j] = -1;
+				while ((*board)[i][k].possible_num[++l] != n)
+					(*board)[i][k].possible_num[l] = 0;
+			}
+		}
+	}*/
+
+	int	i;
+	int	j;
+	int	k;
+	int	n;
+
+	i = -1;
+	while (++i < TOTAL_ROWS)
+	{
+		if (int_clues[i] == 1)
+		{
+			j = -1;
+			n = N + 1;
+			while (++j < TOTAL_ROWS)
+			{
+				k = -1;
+				n--;
+				while (++k < TOTAL_COLS)
+				{
+					if ((*board)[j][i].possible_num[k] != n)
+						(*board)[j][i].possible_num[k] = 0;
+
+				}
 			}
 		}
 	}
