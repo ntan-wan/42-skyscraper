@@ -6,25 +6,30 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 14:01:07 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/27 00:29:06 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/27 09:02:43 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rush01.h"
 
+
 void	print_arr(int *arr)
 {
-	int	i;
-	int	c;
+	int		i;;
+	char	*c;
 
+	if (!arr)
+		return ;
 	i = -1;
 	while (++i < N)
+	//while (arr[++i] != -1)
 	//while (arr[++i])
 	{
-		c = arr[i] + '0';
-		write(1, &c, 1);
-		write(1, "|", 1);
+		c = ft_itoa(arr[i]);
+		putstr_fd(c, 1);
+		putstr_fd("|", 1);
 	}
+	free(c);
 }
 
 int	main(int ac, char **av)
@@ -43,7 +48,9 @@ int	main(int ac, char **av)
 	init_board(&board);
 	init_values(&board);
 	util_print_board(&board);
-	cell_indicies = get_cell_indicies_col_index(0, N);
+	cell_indicies = get_cell_indices_clue_index(16
+	, N);
+	//reverse_indices_arr(&cell_indicies);
 	print_arr(cell_indicies);
 	return (0);
 }
