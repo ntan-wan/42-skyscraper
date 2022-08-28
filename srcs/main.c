@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 14:01:07 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/28 09:45:06 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/28 22:14:44 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,23 @@ void	print_arr(int *arr)
 	//while (arr[++i])
 	{
 		c = ft_itoa(arr[i]);
-		putstr_fd(c, 1);
-		putstr_fd("|", 1);
+		utils_putstr_fd(c, 1);
+		utils_putstr_fd("|", 1);
 	}
 	free(c);
+}
+
+int	*atoi_clues(char **splitted_clues)
+{
+	int	i;
+	int	*int_clues;
+
+	int_clues = malloc(sizeof(int) * (TOTAL_CELLS + 1));
+	i = -1;
+	while (splitted_clues[++i])
+		int_clues[i] = ft_atoi(splitted_clues[i]);
+	int_clues[TOTAL_CELLS] = 0;
+	return (int_clues);
 }
 
 int	main(int ac, char **av)
@@ -41,18 +54,16 @@ int	main(int ac, char **av)
 	//remember to free
 	t_cell	*board;
 	//remember to free
-	//int		*cell_indicies;
 	
 	splitted_clues = ft_split(av[1], ' ');
 	int_clues = atoi_clues(splitted_clues);
 	init_board(&board);
 	init_values(&board);
-	solve_edge_clues(&board, int_clues);
+	edge_clues(&board, int_clues);
 	propagate_constraint(&board);
 	//int arr[4] = {0,1,2,3};
 	//printf("%d\n", duplicate_check(&board, arr, 4, 3));
 	process_elimination(&board);
-	//process_elimination();
 	util_print_board(&board);
 	//cell_indicies = get_cell_indices_clue_index(0
 	//, N);

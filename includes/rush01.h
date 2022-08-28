@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 20:21:51 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/28 16:02:18 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/28 22:30:32 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,41 @@ typedef struct s_cell
 	int	nums[N];
 } t_cell;
 
-t_cell	*insert_row(void);
+/* init */
 void	init_board(t_cell **board);
 void	init_values(t_cell **board);
-int		*atoi_clues(char **splitted_clues);
-void	util_print_board(t_cell **board);
+
+/* edge */
+void	edge_clues(t_cell **board, int *int_clues);
+
+/* get */
 int		*get_cell_indices_row_index(int row_index);
 int		*get_cell_indices_col_index(int col_index);
 int		*get_cell_indices_clue_index(int clue_index);
-void	putstr_fd(char *c, int fd);
-void	reverse_indices_arr(int	**arr);
-void	solve_edge_clues(t_cell **board, int *int_clues);
+
+/* utils */
+size_t	utils_strlen(const char *str);
+void	utils_putstr_fd(char *c, int fd);
+void	util_print_board(t_cell **board);
+
+/* ft */
+char	*ft_itoa(int n);
+int		ft_atoi(const char *str);
+char	*ft_strdup(const char *str);
+char	**ft_split(char const *s, char c);
+
+/* constraint */
+void	propagate_constraint(t_cell **board);
+
+/* eliminate */
+void	process_elimination(t_cell **board);
+
+int		remove_num(t_cell **board, int *row_col, int num, int cell_index);
+
+t_cell	*insert_row(void);
+int		*atoi_clues(char **splitted_clues);
 void	print_arr(int *arr);
 int		is_one_value(int *nums);
-void	propagate_constraint(t_cell **board);
-void	process_elimination(t_cell **board);
 void	clear_all_left_one(t_cell **board, int cell_index, int num);
 int		duplicate_check(t_cell **board, int cell_index, int *row_col, int num);
-/*  */
-size_t	ft_strlen(const char *str);
-char	*ft_itoa(int n);
-char	*ft_strdup(const char *str);
-int		ft_atoi(const char *str);
-char	**ft_split(char const *s, char c);
 #endif

@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:15:30 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/27 07:57:59 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/28 21:47:59 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strdup(const char *str)
 	char	*ptr;
 
 	i = 0;
-	str_len = ft_strlen(str);
+	str_len = utils_strlen(str);
 	ptr = (char *)malloc((str_len + 1) * sizeof(char));
 	if (!ptr)
 		return (NULL);
