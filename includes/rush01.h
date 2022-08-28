@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 20:21:51 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/27 22:07:14 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/28 08:22:40 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	solve_edge_clues(t_cell **board, int *int_clues);
 void	print_arr(int *arr);
 int		is_one_value(int *nums);
 void	propagate_constraint(t_cell **board);
+void	process_elimination(t_cell **board);
+void	clear_all_left_one(t_cell **board, int cell_index, int num);
+int		duplicate_check(t_cell **board, int cell_index, int *row_col, int num);
 /*  */
 size_t	ft_strlen(const char *str);
 char	*ft_itoa(int n);

@@ -273,7 +273,7 @@ void	propagate_constraint(t_cell **board)
 		propagate_constraint(board);
 }
 
-int	duplicate_check(t_cell **board, int *row_col, int num)
+int	duplicate_check(t_cell **board, int cell_index, int *row_col, int num)
 {
 	int	i;
 	int	j;
@@ -284,11 +284,23 @@ int	duplicate_check(t_cell **board, int *row_col, int num)
 		j = -1;
 		while (++j < TOTAL_COLS)
 		{
-			if ((*board)[row_col[i]].nums[j] == num)
+			if (row_col[i] != cell_index && (*board)[row_col[i]].nums[j] == num)
 				return (1);
 		}
 	}
 	return (0);
+}
+
+void	clear_all_left_one(t_cell **board, int cell_index, int num)
+{
+	int	i;
+
+	i = -1;
+	while (++i < TOTAL_COLS)
+	{
+		if ((*board)[cell_index].nums[i] != num)
+			(*board)[cell_index].nums[i] = 0;
+	}
 }
 
 void	process_elimination(t_cell **board)
@@ -314,23 +326,22 @@ void	process_elimination(t_cell **board)
 			{
 				if ((*board)[i].nums[j])
 				{
-					row_dup += duplicate_check(board, row, (*board)[i].nums[j]);
-					col_dup += duplicate_check(board, col, (*board)[i].nums[j]);
+					row_dup = duplicate_check(board, i,row, (*board)[i].nums[j]);
+					col_dup = duplicate_check(board, i, col, (*board)[i].nums[j]);
 				}
 				if (!row_dup || !col_dup)
 				{
-					
+					clear_all_left_one(board, i, (*board)[i].nums[j]);
+					remove_num(board, row, (*board)[i].nums[j], i);
+					remove_num(board, col, (*board)[i].nums[j], i);
 				}
-
 			}
-			//removed += remove_num(board, row, (*board)[i].nums[j], i);
-			//removed += remove_num(board, col, (*board)[i].nums[j], i);
 			free(row);
 			free(col);
 		 }
 	}
-	//if (removed)
-	//	propagate_constraint(board);
+	if (!row_dup || !col_dup)
+		process_elimination(board);
 }
 
 void	edge_clue_min(t_cell **board, int *cell_indices)

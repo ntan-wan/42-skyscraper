@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 14:01:07 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/28 06:23:47 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/28 09:09:31 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ int	main(int ac, char **av)
 	init_values(&board);
 	solve_edge_clues(&board, int_clues);
 	propagate_constraint(&board);
+	//int arr[4] = {0,1,2,3};
+	//printf("%d\n", duplicate_check(&board, arr, 4, 3));
+	process_elimination(&board);
 	//process_elimination();
 	util_print_board(&board);
 	//cell_indicies = get_cell_indices_clue_index(0
