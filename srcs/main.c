@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 14:01:07 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 12:23:22 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:17:15 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ static int	*atoi_clues(char **splitted_clues)
 
 int	main(int ac, char **av)
 {
-	//remember to free
 	int		*int_clues;
-	//remember to free
 	char	**splitted_clues;
-	//remember to free
 	t_cell	*board;
 	
+	//check input ...
+	(void)ac;
 	splitted_clues = ft_split(av[1], ' ');
 	int_clues = atoi_clues(splitted_clues);
 	init_board(&board);
@@ -65,7 +64,7 @@ int	main(int ac, char **av)
 	//	printf("%d |", board[i].size);
 	process_elimination(&board);
 	// sequences_elimination();
-	util_print_board(&board);
-	//free_board();
+	utils_print_board(&board);
+	utils_free_all(&board, &int_clues, &splitted_clues);
 	return (0);
 }

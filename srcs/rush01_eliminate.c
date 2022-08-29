@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 22:15:57 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 12:08:16 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:36:54 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ static void	process(t_cell **board, int i, int *row_dup, int *col_dup)
 	{
 		if ((*board)[i].nums[j])
 		{
-			*row_dup = duplicate_check(board, i, row, (*board)[i].nums[j]);
-			*col_dup = duplicate_check(board, i, col, (*board)[i].nums[j]);
+			*row_dup = utils_dup_check(board, i, row, (*board)[i].nums[j]);
+			*col_dup = utils_dup_check(board, i, col, (*board)[i].nums[j]);
 		}
 		if (!(*row_dup) || !(*col_dup))
 		{
 			remove_all_left_one(board, i, (*board)[i].nums[j]);
-			remove_duplicated_num(board, i, row, (*board)[i].nums[j]);
-			remove_duplicated_num(board, i, col, (*board)[i].nums[j]);
+			remove_dup_num(board, i, row, (*board)[i].nums[j]);
+			remove_dup_num(board, i, col, (*board)[i].nums[j]);
 		}
 	}
 	free(row);

@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 08:51:58 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 12:26:28 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:36:01 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	remove_all_left_one(t_cell **board, int cell_index, int num)
 	init_size(board, cell_index);
 }
 
-int	remove_duplicated_num(t_cell **board, int cell_index, int *row_col, int num)
+int	remove_dup_num(t_cell **board, int cell_index, int *row_col, int num)
 {
 	int	i;
 	int	j;

@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 20:21:51 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 11:15:04 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:16:39 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ typedef struct s_cell
 {
 	int	nums[N];
 	int	size;
-	int	cell_index;
-} t_cell;
+}	t_cell;
 
 /* edge */
 void	edge_clues(t_cell **board, int *int_clues);
@@ -52,8 +51,9 @@ int		*get_cell_indices_clue_index(int clue_index);
 /* utils */
 size_t	utils_strlen(const char *str);
 void	utils_putstr_fd(char *c, int fd);
-void	util_print_board(t_cell **board);
-int		duplicate_check(t_cell **board, int cell_index, int *row_col, int num);
+void	utils_print_board(t_cell **board);
+int		utils_dup_check(t_cell **board, int cell_index, int *row_col, int num);
+void	utils_free_all(t_cell **board, int **int_clues, char ***splitted_clues);
 
 /* ft */
 char	*ft_itoa(int n);
@@ -63,7 +63,5 @@ char	**ft_split(char const *s, char c);
 
 /* cell */
 void	remove_all_left_one(t_cell **board, int cell_index, int num);
-int		remove_duplicated_num(t_cell **board, int cell_index, int *row_col, int num);
-
-void	print_arr(int *arr);
+int		remove_dup_num(t_cell **board, int cell_index, int *row_col, int num);
 #endif

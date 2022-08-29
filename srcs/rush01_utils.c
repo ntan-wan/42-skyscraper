@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rush01_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/29 16:49:24 by ntan-wan          #+#    #+#             */
+/*   Updated: 2022/08/29 16:49:33 by ntan-wan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/rush01.h"
 
 void	utils_putstr_fd(char *c, int fd)
@@ -15,7 +27,7 @@ size_t	utils_strlen(const char *str)
 	return (i);
 }
 
-int	duplicate_check(t_cell **board, int cell_index, int *row_col, int num)
+int	utils_dup_check(t_cell **board, int cell_index, int *row_col, int num)
 {
 	int	i;
 	int	j;
@@ -33,7 +45,7 @@ int	duplicate_check(t_cell **board, int cell_index, int *row_col, int num)
 	return (0);
 }
 
-void	util_print_board(t_cell **board)
+void	utils_print_board(t_cell **board)
 {
 	int		i;
 	int		j;
@@ -47,10 +59,25 @@ void	util_print_board(t_cell **board)
 		{
 			c = ft_itoa((*board)[i].nums[j]);
 			utils_putstr_fd(c, 1);
+			free(c);
 		}
 		if ((i + 1) % N == 0)
 			utils_putstr_fd("\n", 1);
 		else
 			utils_putstr_fd(" ", 1);
 	}
+}
+
+void	utils_free_all(t_cell **board, int **int_clues, char ***splitted_clues)
+{
+	int	i;
+
+	if (*int_clues)
+		free(*int_clues);
+	if (*board)
+		free(*board);
+	i = -1;
+	while (*splitted_clues && (*splitted_clues)[++i])
+		free((*splitted_clues)[i]);
+	free(*splitted_clues);
 }

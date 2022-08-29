@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 21:17:18 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 09:13:50 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:17:49 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	init_size(t_cell **board, int cell_index)
 void	init_board(t_cell **board)
 {
 	int		i;
-	int		j;
 	t_cell	new_cell;
 
+	new_cell = (t_cell){.size = 0, .nums = {0}};
 	*board = malloc(sizeof(t_cell) * (TOTAL_CELLS + 1));
 	if (!board)
 		return ;
