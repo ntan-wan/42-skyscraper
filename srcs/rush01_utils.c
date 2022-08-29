@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 16:49:24 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 16:49:33 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/29 18:25:14 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	utils_print_board(t_cell **board)
 	}
 }
 
-void	utils_free_all(t_cell **board, int **int_clues, char ***splitted_clues)
+void	utils_free_all(t_cell **board, char ***splitted_clues, int **int_clues)
 {
 	int	i;
 

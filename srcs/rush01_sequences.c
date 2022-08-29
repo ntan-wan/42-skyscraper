@@ -6,12 +6,77 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 12:30:20 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 16:30:19 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/29 23:32:48 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rush01.h"
 
+static int is_in_order(t_cell **board, int *row_col)
+{
+	int	i;
+
+	i = -1;
+	while (++i < N)	
+	{
+		if ((*board)[row_col[i]].size != 1)
+			return (0);
+	}
+	return (1);
+}
+
+int	get_num_from_cell(t_cell **board, int cell_index)
+{
+	int	i;
+	int	num;
+
+	i = -1;
+	num = 0;
+	while (++i < N)
+	{
+		if ((*board)[cell_index].nums[i] != 0)
+		{
+			num = (*board)[cell_index].nums[i];
+			break ;
+		}
+	}
+	return (num);
+}
+
+int	*get_sequences(t_cell **board, int *row_col)
+{
+	int	i;
+	int	*sequences;
+
+	i = -1;
+	sequences = malloc(sizeof(int) * (N + 1));
+	while (++i < N)
+		sequences[i] = get_num_from_cell(board, row_col[i]);
+	sequences[N] = 0;
+	return (sequences);
+}
+
+void	sequences_elimination(t_cell **board, int *int_clues)
+{
+	int	i;
+	int	*cell_indices;
+	//remember to free
+	int	*sequence;
+
+	i = -1;
+	while (++i < 3)
+	{
+		//remember to free
+		cell_indices = get_cell_indices_clue_index(i);
+		if (!is_in_order(board, cell_indices))
+		{
+			sequence = get_sequences(board, cell_indices);
+			if (is_right_sequences())
+			//
+			//print_arr(sequence);
+		}
+	}
+}
 /*void	find_correct_sequence(t_cell **board, int *cell_indices)
 {
 	int	i;

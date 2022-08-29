@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 14:01:07 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 17:17:15 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/29 20:31:59 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	print_arr(int *arr)
 		utils_putstr_fd(c, 1);
 		utils_putstr_fd("|", 1);
 	}
+	write(1, "\n", 1);
 	free(c);
 }
 
@@ -59,12 +60,12 @@ int	main(int ac, char **av)
 	init_values(&board);
 	edge_clues(&board, int_clues);
 	propagate_constraint(&board);
+	process_elimination(&board);
 	//int i = -1;
 	//while (++i < TOTAL_CELLS)
-	//	printf("%d |", board[i].size);
-	process_elimination(&board);
-	// sequences_elimination();
+		//printf("%d |", board[i].size);
+	sequences_elimination(&board, int_clues);
 	utils_print_board(&board);
-	utils_free_all(&board, &int_clues, &splitted_clues);
+	utils_free_all(&board, &splitted_clues, &int_clues);
 	return (0);
 }
