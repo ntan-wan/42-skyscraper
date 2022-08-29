@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 20:21:51 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 20:32:14 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/30 01:04:56 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 typedef struct s_cell
 {
-	int	nums[N];
+	int	*nums;
 	int	size;
 }	t_cell;
 
@@ -66,6 +66,7 @@ char	**ft_split(char const *s, char c);
 
 /* cell */
 void	remove_all_left_one(t_cell **board, int cell_index, int num);
+void	remove_num(t_cell **board, int cell_index, int num);
 int		remove_dup_num(t_cell **board, int cell_index, int *row_col, int num);
 
 

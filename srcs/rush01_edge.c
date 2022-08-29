@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 21:22:05 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 09:28:27 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/30 01:11:22 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static void	edge_clue_min(t_cell **board, int *cell_indices)
 {
-	int	j;
+	//free((*board)[cell_indices[0]].nums);
+	remove_all_left_one(board, cell_indices[0], N);
+	/*int	j;
 
 	j = -1;
 	while (++j < TOTAL_COLS)
@@ -22,7 +24,7 @@ static void	edge_clue_min(t_cell **board, int *cell_indices)
 		if ((*board)[cell_indices[0]].nums[j] != N)
 			(*board)[cell_indices[0]].nums[j] = 0;
 	}
-	init_size(board, cell_indices[0]);
+	init_size(board, cell_indices[0]);*/
 }
 
 static void	edge_clue_mid(t_cell **board, int clue, int *cell_indices)
@@ -36,11 +38,17 @@ static void	edge_clue_mid(t_cell **board, int clue, int *cell_indices)
 	{
 		j = -1;
 		values_to_eliminate = N - clue + 2 + i;
-		while (++j < TOTAL_COLS)
+		//free((*board)[cell_indices[i]].nums);
+		while (values_to_eliminate <= N)
+		{
+			remove_num(board, cell_indices[i], values_to_eliminate);
+			values_to_eliminate++;
+		}
+		/*while (++j < TOTAL_COLS)
 		{
 			if ((*board)[cell_indices[i]].nums[j] >= values_to_eliminate)
 				(*board)[cell_indices[i]].nums[j] = 0;
-		}
+		}*/
 		init_size(board, cell_indices[i]);
 	}
 }
@@ -56,12 +64,14 @@ static void	edge_clue_max(t_cell **board, int *cell_indices)
 	while (cell_indices[++i] != -1)
 	{	
 		n++;
-		j = -1;
-		while (++j < TOTAL_COLS)
-		{
-			if ((*board)[cell_indices[i]].nums[j] != n)
-				(*board)[cell_indices[i]].nums[j] = 0;
-		}
+		//free((*board)[cell_indices[i]].nums);
+		remove_all_left_one(board, cell_indices[i], n);
+		//j = -1;
+		//while (++j < TOTAL_COLS)
+	//	{
+			//if ((*board)[cell_indices[i]].nums[j] != n)
+				//(*board)[cell_indices[i]].nums[j] = 0;
+		//}
 		init_size(board, cell_indices[i]);
 	}	
 }

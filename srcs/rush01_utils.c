@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 16:49:24 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 18:25:14 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/30 01:15:28 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	utils_print_board(t_cell **board)
 	while (++i < TOTAL_CELLS)
 	{
 		j = -1;
-		while (++j < TOTAL_COLS)
+		//while (++j < TOTAL_COLS)
+		while ((*board)[i].nums[++j])
 		{
 			c = ft_itoa((*board)[i].nums[j]);
 			utils_putstr_fd(c, 1);
