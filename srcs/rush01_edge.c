@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 21:22:05 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/28 22:26:51 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/29 09:28:27 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	edge_clue_min(t_cell **board, int *cell_indices)
 		if ((*board)[cell_indices[0]].nums[j] != N)
 			(*board)[cell_indices[0]].nums[j] = 0;
 	}
+	init_size(board, cell_indices[0]);
 }
 
 static void	edge_clue_mid(t_cell **board, int clue, int *cell_indices)
@@ -40,6 +41,7 @@ static void	edge_clue_mid(t_cell **board, int clue, int *cell_indices)
 			if ((*board)[cell_indices[i]].nums[j] >= values_to_eliminate)
 				(*board)[cell_indices[i]].nums[j] = 0;
 		}
+		init_size(board, cell_indices[i]);
 	}
 }
 
@@ -60,6 +62,7 @@ static void	edge_clue_max(t_cell **board, int *cell_indices)
 			if ((*board)[cell_indices[i]].nums[j] != n)
 				(*board)[cell_indices[i]].nums[j] = 0;
 		}
+		init_size(board, cell_indices[i]);
 	}	
 }
 

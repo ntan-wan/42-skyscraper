@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 14:01:07 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/28 22:14:44 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:23:22 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_arr(int *arr)
 	free(c);
 }
 
-int	*atoi_clues(char **splitted_clues)
+static int	*atoi_clues(char **splitted_clues)
 {
 	int	i;
 	int	*int_clues;
@@ -53,7 +53,6 @@ int	main(int ac, char **av)
 	char	**splitted_clues;
 	//remember to free
 	t_cell	*board;
-	//remember to free
 	
 	splitted_clues = ft_split(av[1], ' ');
 	int_clues = atoi_clues(splitted_clues);
@@ -61,12 +60,12 @@ int	main(int ac, char **av)
 	init_values(&board);
 	edge_clues(&board, int_clues);
 	propagate_constraint(&board);
-	//int arr[4] = {0,1,2,3};
-	//printf("%d\n", duplicate_check(&board, arr, 4, 3));
+	//int i = -1;
+	//while (++i < TOTAL_CELLS)
+	//	printf("%d |", board[i].size);
 	process_elimination(&board);
+	// sequences_elimination();
 	util_print_board(&board);
-	//cell_indicies = get_cell_indices_clue_index(0
-	//, N);
-	//print_arr(cell_indicies);
+	//free_board();
 	return (0);
 }

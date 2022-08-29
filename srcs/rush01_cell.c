@@ -1,58 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rush01_init.c                                      :+:      :+:    :+:   */
+/*   rush01_cell.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/28 21:17:18 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 09:13:50 by ntan-wan         ###   ########.fr       */
+/*   Created: 2022/08/29 08:51:58 by ntan-wan          #+#    #+#             */
+/*   Updated: 2022/08/29 12:26:28 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rush01.h"
 
-void	init_size(t_cell **board, int cell_index)
+void	remove_all_left_one(t_cell **board, int cell_index, int num)
 {
 	int	i;
-	int	count;
 
 	i = -1;
-	count = 0;
 	while (++i < TOTAL_COLS)
 	{
-		if ((*board)[cell_index].nums[i] > 0)
-			count++;
+		if ((*board)[cell_index].nums[i] != num)
+			(*board)[cell_index].nums[i] = 0;
 	}
-	(*board)[cell_index].size = count;
+	init_size(board, cell_index);
 }
 
-void	init_board(t_cell **board)
-{
-	int		i;
-	int		j;
-	t_cell	new_cell;
-
-	*board = malloc(sizeof(t_cell) * (TOTAL_CELLS + 1));
-	if (!board)
-		return ;
-	(*board)[TOTAL_CELLS].nums[0] = 0;
-	i = -1;
-	while (++i < TOTAL_CELLS)
-		(*board)[i] = new_cell;
-}
-
-void	init_values(t_cell **board)
+int	remove_duplicated_num(t_cell **board, int cell_index, int *row_col, int num)
 {
 	int	i;
 	int	j;
+	int	removed;
 
 	i = -1;
-	while (++i < TOTAL_CELLS)
+	removed = 0;
+	while (row_col[++i])
 	{
 		j = -1;
 		while (++j < TOTAL_COLS)
-			(*board)[i].nums[j] = j + 1;
-		init_size(board, i);
+		{
+			if (row_col[i] != cell_index && (*board)[row_col[i]].nums[j] == num)
+			{
+				(*board)[row_col[i]].nums[j] = 0;
+				removed++;
+			}
+		}
+		init_size(board, row_col[i]);
 	}
+	return (removed);
 }
