@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 14:01:07 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 20:31:59 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/30 01:38:51 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	print_arr(int *arr)
 		return ;
 	i = -1;
 	while (++i < N)
-	//while (arr[++i] != -1)
-	//while (arr[++i])
 	{
 		c = ft_itoa(arr[i]);
 		utils_putstr_fd(c, 1);
@@ -61,9 +59,6 @@ int	main(int ac, char **av)
 	edge_clues(&board, int_clues);
 	propagate_constraint(&board);
 	process_elimination(&board);
-	//int i = -1;
-	//while (++i < TOTAL_CELLS)
-		//printf("%d |", board[i].size);
 	sequences_elimination(&board, int_clues);
 	utils_print_board(&board);
 	utils_free_all(&board, &splitted_clues, &int_clues);

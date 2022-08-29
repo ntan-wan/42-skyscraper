@@ -6,7 +6,7 @@
 /*   By: ntan-wan <ntan-wan@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 12:30:20 by ntan-wan          #+#    #+#             */
-/*   Updated: 2022/08/29 23:32:48 by ntan-wan         ###   ########.fr       */
+/*   Updated: 2022/08/30 01:28:22 by ntan-wan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,21 @@ int	*get_sequences(t_cell **board, int *row_col)
 void	sequences_elimination(t_cell **board, int *int_clues)
 {
 	int	i;
+	//remember to free
 	int	*cell_indices;
 	//remember to free
 	int	*sequence;
 
 	i = -1;
-	while (++i < 3)
+	while (++i < 2)
 	{
-		//remember to free
 		cell_indices = get_cell_indices_clue_index(i);
 		if (!is_in_order(board, cell_indices))
 		{
 			sequence = get_sequences(board, cell_indices);
-			if (is_right_sequences())
+			//if (is_right_sequences())
 			//
-			//print_arr(sequence);
+			print_arr(sequence);
 		}
 	}
 }
